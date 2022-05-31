@@ -11,7 +11,7 @@ module.exports = {
       'dark-purple': '#7f36ff',
       'grey': '#e2e8f0',
       'medium-grey': '#bbbbbc',
-      'dark-grey': '#64748b',
+      'dark-grey': '#7B7B7C',
     },
     fontFamily: {
       sans: ['Graphik', 'sans-serif'],

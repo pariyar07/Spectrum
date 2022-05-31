@@ -2,7 +2,7 @@ import { CgMore } from "react-icons/cg";
 
 const RightNav = () => {
     return (
-        <div className="flex flex-col min-w-4/12">
+        <div className="flex flex-col w-6/12">
             <input type="text" placeholder="🔍 Search Spectrum" className="ml-5 my-2 px-3 py-2 rounded-full w-11/12 bg-grey placeholder:text-dark-grey"/>
             <div className="flex flex-col gap-2 px-6 mt-4 bg-grey rounded-2xl mx-6 py-4">
                 <h1 className="text-2xl font-medium mb-2">What's happening</h1>

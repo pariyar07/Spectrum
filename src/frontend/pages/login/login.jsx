@@ -14,16 +14,18 @@ export default function LogIn() {
         e.preventDefault();
         try {
             let response = await axios.post("/api/auth/login", {
-                email: "admin@spectrum.com",
-                password: "admin@spectrum123",
+                username: "satyam",
+                email: "satyam@spectrum.com",
+                password: "satyam@spectrum123",
             });
+            console.log(response);
             localStorage.setItem("token", response.data.encodedToken);
         } catch (error) {
             console.log(error);
         }
         setIsLoggedIn((isLoggedIn) => !isLoggedIn);
 		showToast("Successfully Logged In", 'success');
-        navigate(location?.state?.from?.pathname, { replace: true });
+        navigate(location?.state?.from?.pathname || "/", { replace: true });
     }
 
     return (

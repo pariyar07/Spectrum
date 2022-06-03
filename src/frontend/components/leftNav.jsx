@@ -6,34 +6,37 @@ import { BsFillBookmarkFill } from "react-icons/bs";
 import { FaListAlt } from "react-icons/fa";
 import { MdAccountCircle } from "react-icons/md";
 import { CgMoreO, CgMore } from "react-icons/cg";
+import { NavLink } from "react-router-dom";
 
 const LeftNav = () => {
     const navList = [
         {
-        icon: <AiFillHome/>,
-        name: "Home"
-    },{
-        icon: <FiHash/>,
-        name: "Explore"
-    },{
-        icon: <IoMdNotifications/>,
-        name: "Notifications"
-    },{
-        icon: <BiMessageSquareDetail/>,
-        name: "Messages"
-    },{
-        icon: <BsFillBookmarkFill/>,
-        name: "Bookmarks"
-    },{
-        icon: <FaListAlt/>,
-        name: "Lists"
-    },{
-        icon: <MdAccountCircle/>,
-        name: "Profile"
-    },{
-        icon: <CgMoreO/>,
-        name: "More"
-    }
+            icon: <AiFillHome />,
+            name: "Home",
+            route: "/"
+        }, {
+            icon: <FiHash />,
+            name: "Explore"
+        }, {
+            icon: <IoMdNotifications />,
+            name: "Notifications"
+        }, {
+            icon: <BiMessageSquareDetail />,
+            name: "Messages"
+        }, {
+            icon: <BsFillBookmarkFill />,
+            name: "Bookmarks"
+        }, {
+            icon: <FaListAlt />,
+            name: "Lists"
+        }, {
+            icon: <MdAccountCircle />,
+            name: "Profile",
+            route: "/profile"
+        }, {
+            icon: <CgMoreO />,
+            name: "More"
+        }
     ];
 
     return (
@@ -47,12 +50,12 @@ const LeftNav = () => {
                     <button className="bg-purple min-w-full py-2 rounded-full text-white text-base font-medium hover:bg-dark-purple transition ease-out delay-100" title="post">Post</button>
                 </ul>
                 <div className="flex items-center gap-4 cursor-pointer px-2 py-2 rounded-full hover:bg-purple hover:text-white transition ease-out delay-100">
-                    <img src="/assets/spectrum.png" alt="profile pic" className="w-11 h-11 rounded-full shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)]"/>
+                    <img src="/assets/spectrum.png" alt="profile pic" className="w-11 h-11 rounded-full shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)]" />
                     <div className="text-sm">
                         <h3>Admin</h3>
                         <p>@spectrum_admin</p>
                     </div>
-                    <CgMore className="text-xl transition-transform hover:scale-125" title="more"/>
+                    <CgMore className="text-xl transition-transform hover:scale-125" title="more" />
                 </div>
             </nav>
         </>

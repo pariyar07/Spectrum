@@ -36,9 +36,9 @@ const SinglePost = () => {
                         <p>{post.content}</p>
                         {post.image === "" ? "" : <img src={post.image} alt="post img" className="rounded-xl h-max w-auto mt-2" />}
                         <ul className="flex justify-between mt-4 text-xl">
-                            <li className="flex items-center gap-1 cursor-pointer" title="like a post"><AiFillLike /><span className="text-sm text-dark-grey"></span></li>
-                            <li className="flex items-center gap-1 cursor-pointer" title="scale this post"><AiOutlineRetweet /><span className="text-sm text-dark-grey"></span></li>
-                            <li className="flex items-center gap-1 cursor-pointer" title="comment on this post"><MdModeComment /><span className="text-sm text-dark-grey"></span></li>
+                            <li className="flex items-center gap-1 cursor-pointer" title="like a post"><AiFillLike /><span className="text-sm text-dark-grey">{post.likes.likeCount}</span></li>
+                            <li className="flex items-center gap-1 cursor-pointer" title="scale this post"><AiOutlineRetweet /><span className="text-sm text-dark-grey">{post.scale.scaleCount}</span></li>
+                            <li className="flex items-center gap-1 cursor-pointer" title="comment on this post"><MdModeComment /><span className="text-sm text-dark-grey">{post.comments.length}</span></li>
                             <li className="flex items-center gap-1 cursor-pointer" title="share post"><FaShare /><span className="text-sm text-dark-grey"></span></li>
                             <li className="flex items-center gap-1 cursor-pointer" title="tip user"><MdTipsAndUpdates /><span className="text-sm text-dark-grey"></span></li>
                         </ul>

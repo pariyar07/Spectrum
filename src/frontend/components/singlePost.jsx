@@ -1,23 +1,11 @@
-import { useState, useEffect } from "react";
 import { AiOutlineRetweet, AiFillLike } from "react-icons/ai";
 import { MdModeComment, MdTipsAndUpdates } from "react-icons/md";
 import { BsThreeDots } from "react-icons/bs";
 import { FaShare } from "react-icons/fa";
 import {usePosts} from "frontend/context/postContext";
-import axios from "axios";
 
 const SinglePost = () => {
-    const [receivedPost, setReceivedPost] = useState([]);
-    const {postsState: {posts}} = usePosts();
-
-    const fetchPosts = async () => {
-        const postsData = await axios.get("/api/posts");
-        setReceivedPost(postsData.data.posts);
-    }
-
-    useEffect(() => {
-        fetchPosts()
-    }, [])
+    const {postsState: {posts}, receivedPost} = usePosts();
 
     return (<>
     {posts.map(post => {

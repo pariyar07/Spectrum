@@ -76,7 +76,7 @@ const Homepage = () => {
 
     return (
         <>
-            <LeftNav />
+            <LeftNav/>
             <main className="max-w-2xl border-grey border-x">
                 <div className="flex items-center justify-between mx-6 mt-2 text-xl font-medium">
                     <p>Home</p>

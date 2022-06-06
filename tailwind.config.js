@@ -19,7 +19,9 @@ module.exports = {
       sans: ['Graphik', 'sans-serif'],
       serif: ['Merriweather', 'serif'],
     },
-    extend: {},
+    extend: {
+      display: ["group-hover"],
+    },
   },
   plugins: [],
 }

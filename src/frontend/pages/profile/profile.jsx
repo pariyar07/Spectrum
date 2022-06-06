@@ -6,84 +6,79 @@ import { MdLocationPin } from "react-icons/md";
 import { BiLink } from "react-icons/bi";
 import { BsCalendarEventFill } from "react-icons/bs";
 import Modal from "frontend/components/modal.jsx";
-import axios from "axios";
+import { useUser } from "frontend/context/userContext";
+import { usePosts } from "frontend/context/postContext";
+import PostsOnProfile from "frontend/components/postsOnProfile";
+import { useToast } from 'frontend/custom/useToast';
 
 const Profile = () => {
+    const { loggedUserData } = useUser();
     const [showModal, setShowModal] = useState(false);
-    const [userData, setUserData] = useState([]);
-    const [profileData, setProfileData] = useState({bio: "", profileLink: "", profileImage: ""});
-
-    const fetchUserData = async () => {
-        const fetchedUserData = await axios.get(`/api/users/`);
-        setUserData(fetchedUserData.data.users);
-    }
+    const [editUserData, setEditUserData] = useState(loggedUserData);
+    const { postsState: { posts } } = usePosts();
+    const { showToast } = useToast();
 
     useEffect(() => {
-        fetchUserData()
-    }, [])
-
-    const loggedUserData = {...userData[0]}
-
-    const updateUserData = () => {
-        const newProfileData = {
-            ...profileData.bio = loggedUserData.bio
+        const newData = localStorage.getItem("edited-data")
+        if (newData) {
+            setEditUserData(JSON.parse(newData));
         }
-        setShowModal(false)
-    }
+    }, [editUserData])
 
     return (
         <>
             <LeftNav />
-                <main className="flex flex-col max-w-2xl border-grey border-x gap-2" key={loggedUserData._id}>
-                    <section className="w-2xl">
-                        <div className="flex items-center gap-4">
-                            <IoIosArrowBack className="text-3xl" />
-                            <div>
-                                <p className="text-xl font-semibold" value={loggedUserData.firstName}>{loggedUserData.firstName}</p>
-                                <p className="text-sm">0 Posts</p>
-                            </div>
-                        </div>
-                        <div className="flex flex-col gap-4 w-full items-end relative">
-                            <img src={loggedUserData.backgroundImage} alt="profile backgroung img" />
-                            <button className="border-2 border-dark-grey px-6 py-1 rounded-full font-semibold text-lg w-fit mr-4" onClick={() => setShowModal(true)}>Edit Profile</button>
-                            <img src={loggedUserData.profileImage} alt="profile pic" className="rounded-full w-32 h-32 absolute top-1/2 left-4 shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)]" />
-                        </div>
+            <main className="flex flex-col max-w-2xl border-grey border-x gap-2" key={editUserData._id}>
+                <section className="w-2xl">
+                    <div className="flex items-center gap-4">
+                        <IoIosArrowBack className="text-3xl" />
                         <div>
-                            <div className="ml-6 mt-4">
-                                <p className="text-2xl font-bold">{loggedUserData.firstName} {loggedUserData.lastName}</p>
-                                <p className="text-sm text-dark-grey font-medium">@Admin</p>
-                            </div>
-                            <p className="mx-6 mt-4 font-medium" value={profileData.bio}>{profileData.bio}</p>
-                            <ul className="flex gap-6 mx-6 my-4">
-                                <li className="flex text-dark-grey font-medium items-center gap-1">
-                                    <MdLocationPin />
-                                    <p>India</p>
-                                </li>
-                                <li className="flex text-dark-grey font-medium items-center gap-1">
-                                    <BiLink />
-                                    <a href={loggedUserData.profileLink} className="text-link">{loggedUserData.profileLink}</a>
-                                </li>
-                                <li className="flex text-dark-grey font-medium items-center gap-1">
-                                    <BsCalendarEventFill />
-                                    <p>Joined June 2022</p>
-                                </li>
-                            </ul>
-                            <div className="flex gap-6 mx-6">
-                                <p className="font-semibold">0 <span className="text-dark-grey font-normal">Following</span></p>
-                                <p className="font-semibold">0 <span className="text-dark-grey font-normal">Followers</span></p>
-                            </div>
+                            <p className="text-xl font-semibold" value={editUserData.firstName}>{editUserData.firstName}</p>
+                            <p className="text-sm">{posts.length} Posts</p>
                         </div>
-                    </section>
-                    <section>
-                        <ul className="flex justify-between border-grey border-b">
-                            <li className="px-8 py-2 text-lg font-semibold transition-all hover:bg-medium-grey hover:text-white">Posts</li>
-                            <li className="px-8 py-2 text-lg font-semibold transition-all hover:bg-medium-grey hover:text-white">Posts & replies</li>
-                            <li className="px-8 py-2 text-lg font-semibold transition-all hover:bg-medium-grey hover:text-white">Media</li>
-                            <li className="px-8 py-2 text-lg font-semibold transition-all hover:bg-medium-grey hover:text-white">Likes</li>
+                    </div>
+                    <div className="flex flex-col gap-4 w-full items-end relative">
+                        <img src={editUserData.backgroundImage} alt="profile backgroung img" />
+                        <button className="border-2 border-dark-grey px-6 py-1 rounded-full font-semibold text-lg w-fit mr-4" onClick={() => setShowModal(true)}>Edit Profile</button>
+                        <img src={editUserData.profileImage} alt="profile pic" className="rounded-full w-32 h-32 absolute top-1/2 left-4 shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)]" value={editUserData.profileImage} />
+                    </div>
+                    <div>
+                        <div className="ml-6 mt-4">
+                            <p className="text-2xl font-bold">{editUserData.firstName} {editUserData.lastName}</p>
+                            <p className="text-sm text-dark-grey font-medium">@{editUserData.firstName}</p>
+                        </div>
+                        <p className="mx-6 mt-4 font-medium" value={editUserData.bio}>{editUserData.bio}</p>
+                        <ul className="flex gap-6 mx-6 my-4">
+                            <li className="flex text-dark-grey font-medium items-center gap-1">
+                                <MdLocationPin />
+                                <p>India</p>
+                            </li>
+                            <li className="flex text-dark-grey font-medium items-center gap-1">
+                                <BiLink />
+                                <a href={editUserData.profileLink} className="text-link" defaultValue={editUserData.profileLink}>{editUserData.profileLink}</a>
+                            </li>
+                            <li className="flex text-dark-grey font-medium items-center gap-1">
+                                <BsCalendarEventFill />
+                                <p>Joined June 2022</p>
+                            </li>
                         </ul>
-                    </section>
-                </main>
-            <Modal showModal={showModal} setShowModal={setShowModal} update={updateUserData}/>
+                        <div className="flex gap-6 mx-6">
+                            <p className="font-semibold">0 <span className="text-dark-grey font-normal">Following</span></p>
+                            <p className="font-semibold">0 <span className="text-dark-grey font-normal">Followers</span></p>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <ul className="flex justify-between border-grey border-b">
+                        <li className="px-8 py-2 text-lg font-semibold transition-all hover:bg-medium-grey hover:text-white cursor-pointer border-b-2 border-purple" title="Posts">Posts</li>
+                        <li className="px-8 py-2 text-lg font-semibold transition-all hover:bg-medium-grey hover:text-white cursor-pointer" title="Posts & replies" onClick={() => showToast("Coming Soon", 'warning')}>Posts & replies</li>
+                        <li className="px-8 py-2 text-lg font-semibold transition-all hover:bg-medium-grey hover:text-white cursor-pointer" title="Media" onClick={() => showToast("Coming Soon", 'warning')}>Media</li>
+                        <li className="px-8 py-2 text-lg font-semibold transition-all hover:bg-medium-grey hover:text-white cursor-pointer" title="Likes" onClick={() => showToast("Coming Soon", 'warning')}>Likes</li>
+                    </ul>
+                </section>
+                <PostsOnProfile />
+            </main>
+            <Modal showModal={showModal} setShowModal={setShowModal} editUserData={editUserData} setEditUserData={setEditUserData} />
             <RightNav />
         </>
     )

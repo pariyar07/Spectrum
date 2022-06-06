@@ -9,10 +9,10 @@ function App() {
   return (
     <div className="App flex justify-between w-screen">
       <Routes>
-        <Route path="/" element={<RequiresAuth><Homepage /></RequiresAuth>} />
-        <Route path="/profile" element={<RequiresAuth><Profile/></RequiresAuth>} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/" element={<RequiresAuth><Homepage /></RequiresAuth>} />
+        <Route path="/profile" element={<RequiresAuth><Profile/></RequiresAuth>} />
         <Route path="*" element={<div className="flex justify-center items-center min-w-full"><h1 style={{ fontSize: "5rem" }}>Page Not Found!</h1></div>} />
       </Routes>
     </div>

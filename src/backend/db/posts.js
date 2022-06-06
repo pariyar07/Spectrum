@@ -57,11 +57,11 @@ export const posts = [
     profileImage: "https://picsum.photos/60/60",
     createdAt: formatDate(),
     likes: {
-      likeCount: "321K",
+      likeCount: 321,
       likedBy: [],
     },
     scale: {
-      scaleCount: "125K",
+      scaleCount: 125,
       scaledBy: []
     },
     comments: [
@@ -147,11 +147,11 @@ export const posts = [
     profileImage: "https://picsum.photos/60/60",
     createdAt: formatDate(),
     likes: {
-      likeCount: "569K",
+      likeCount: 569,
       likedBy: [],
     },
     scale: {
-      scaleCount: "434K",
+      scaleCount: 434,
       scaledBy: []
     },
     comments: [
@@ -177,11 +177,11 @@ export const posts = [
     profileImage: "https://picsum.photos/60/60",
     createdAt: formatDate(),
     likes: {
-      likeCount: "2M",
+      likeCount: 2007,
       likedBy: [],
     },
     scale: {
-      scaleCount: "1M",
+      scaleCount: 1545,
       scaledBy: []
     },
     comments: [

@@ -16,7 +16,7 @@ export const users = [
     createdAt: formatDate(),
     updatedAt: formatDate(),
     bio: "“Your time is limited, so don’t waste it living someone else’s life. Don’t be trapped by dogma – which is living with the results of other people’s thinking.” – Steve Jobs",
-    profileImage: "assets/spectrum.png",
+    profileImage: "https://picsum.photos/300/300",
     backgroundImage: "https://picsum.photos/1000/300",
     profileLink: "https://github.com/pariyar07"
   },

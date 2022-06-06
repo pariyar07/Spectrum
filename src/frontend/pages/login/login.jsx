@@ -18,7 +18,6 @@ export default function LogIn() {
                 email: "satyam@spectrum.com",
                 password: "satyam@spectrum123",
             });
-            console.log(response);
             localStorage.setItem("token", response.data.encodedToken);
         } catch (error) {
             console.log(error);

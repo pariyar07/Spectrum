@@ -6,12 +6,12 @@ const PostsContext = createContext(null);
 
 const initialState = {
     posts: [],
-    likes: [],
-    scaled: []
+    bookmarks: []
 }
 
 const PostsProvider = ({children}) => {
     const [receivedPost, setReceivedPost] = useState([]);
+    const [bookmarkedPost, setBookmarkedPost] = useState(false);
     const [postsState, postsDispatch] = useReducer(PostsReducer, initialState);
 
     const fetchPosts = async () => {
@@ -24,7 +24,7 @@ const PostsProvider = ({children}) => {
     }, [])
 
     return (
-        <PostsContext.Provider value={{postsState, postsDispatch, receivedPost}}>
+        <PostsContext.Provider value={{postsState, postsDispatch, receivedPost, bookmarkedPost, setBookmarkedPost}}>
             {children}
         </PostsContext.Provider>
     )

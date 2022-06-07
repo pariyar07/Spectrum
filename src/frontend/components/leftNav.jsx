@@ -39,7 +39,7 @@ const LeftNav = () => {
                     <div className="flex items-center gap-5 cursor-pointer w-full rounded-full" onClick={() => showToast("Coming Soon", 'warning')}><FiHash /> Explore</div>
                     <div className="flex items-center gap-5 cursor-pointer w-full rounded-full" onClick={() => showToast("Coming Soon", 'warning')}><IoMdNotifications /> Notifications</div>
                     <div className="flex items-center gap-5 cursor-pointer w-full rounded-full" onClick={() => showToast("Coming Soon", 'warning')}><BiMessageSquareDetail /> Messages</div>
-                    <div className="flex items-center gap-5 cursor-pointer w-full rounded-full" onClick={() => showToast("Coming Soon", 'warning')}><BsFillBookmarkFill /> Bookmarks</div>
+                    <NavLink to="/bookmarks" style={navActive} className="flex items-center gap-5 cursor-pointer w-full rounded-full"><BsFillBookmarkFill /> Bookmarks</NavLink>
                     <div className="flex items-center gap-5 cursor-pointer w-full rounded-full" onClick={() => showToast("Coming Soon", 'warning')}><FaListAlt /> Lists</div>
                     <NavLink to="/profile" style={navActive} className="flex items-center gap-5 cursor-pointer w-full rounded-full"><MdAccountCircle /> Profile</NavLink>
                     <div className="flex items-center gap-5 cursor-pointer w-full rounded-full" onClick={() => showToast("Coming Soon", 'warning')}><CgMoreO /> More</div>

@@ -10,6 +10,7 @@ import Posts from "frontend/components/posts.jsx";
 import { v4 as uuid } from "uuid";
 import { usePosts } from "frontend/context/postContext";
 import { useToast } from 'frontend/custom/useToast';
+import { useUser } from 'frontend/context/userContext';
 import date from 'date-and-time';
 
 const Homepage = () => {
@@ -17,6 +18,7 @@ const Homepage = () => {
     const [image, setImage] = useState("");
     const { postsDispatch } = usePosts();
     const { showToast } = useToast();
+    const { loggedUserData } = useUser();
 
     const selectImageFile = (e) => {
         e.preventDefault()
@@ -84,7 +86,7 @@ const Homepage = () => {
                 </div>
                 <form className="flex flex-col gap-2 w-full mt-4 px-6 py-2 border-b border-grey">
                     <div className="flex gap-2">
-                        <img src="/assets/spectrum.png" alt="profile pic" className="w-11 h-11 rounded-full shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)]" />
+                        <img src={loggedUserData.profileImage} alt="profile pic" className="w-11 h-11 rounded-full shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)]" />
                         <input type="text" className="w-full px-4 rounded-xl" placeholder="What's Happening?" value={content} onChange={(e) => setContent(e.target.value)} />
                     </div>
                     {image === "" ? "" : <p className="flex bg-purple text-white py-1 pl-4 pr-2 justify-start items-center w-fit rounded-lg ml-16"><BsImageFill className="mr-2" />{image.name}&nbsp;&nbsp; <GiCancel onClick={removeImageFromUpload} /></p>}

@@ -4,7 +4,7 @@ import { BsThreeDots } from "react-icons/bs";
 import { FaShare } from "react-icons/fa";
 import {usePosts} from "frontend/context/postContext";
 
-const SinglePost = () => {
+const HomepagePost = () => {
     const {postsState: {posts}, receivedPost} = usePosts();
 
     return (<>
@@ -63,4 +63,4 @@ const SinglePost = () => {
         </>)
 }
 
-export default SinglePost
+export default HomepagePost

@@ -12,8 +12,10 @@ import { usePosts } from "frontend/context/postContext";
 import { useToast } from 'frontend/custom/useToast';
 import { useUser } from 'frontend/context/userContext';
 import date from 'date-and-time';
+import UserFeedModal from "frontend/components/userFeedModal";
 
 const Homepage = () => {
+    const [showUserFeedModal, setShowUserFeedModal] = useState(false)
     const [content, setContent] = useState("");
     const [image, setImage] = useState("");
     const { postsDispatch } = usePosts();
@@ -80,9 +82,10 @@ const Homepage = () => {
         <>
             <LeftNav/>
             <main className="max-w-2xl border-grey border-x">
-                <div className="flex items-center justify-between mx-6 mt-2 text-xl font-medium">
+                <div className="flex items-center justify-between mx-6 mt-2 text-xl font-medium relative">
                     <p>Home</p>
-                    <BsSortDownAlt className="cursor-pointer" title="sort posts" />
+                    <BsSortDownAlt className="cursor-pointer" title="sort posts" onClick={() => setShowUserFeedModal(active => !active)}/>
+                    <UserFeedModal showUserFeedModal={showUserFeedModal}/>
                 </div>
                 <form className="flex flex-col gap-2 w-full mt-4 px-6 py-2 border-b border-grey">
                     <div className="flex gap-2">

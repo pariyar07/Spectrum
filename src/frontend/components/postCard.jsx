@@ -8,7 +8,7 @@ import { usePosts } from "frontend/context/postContext";
 import {useToast} from 'frontend/custom/useToast';
 
 const PostCard = ({post}) => {
-    const {postsDispatch, bookmarkedPost, setBookmarkedPost } = usePosts();
+    const {postsDispatch, setBookmarkedPost } = usePosts();
     const { showToast} = useToast();
 
     const bookmarkHandler = () => {

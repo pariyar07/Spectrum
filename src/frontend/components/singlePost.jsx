@@ -5,15 +5,14 @@ import {Link} from "react-router-dom";
 
 const SinglePost = () => {
     const { postId } = useParams();
-    const { postsState: { posts }, receivedPost } = usePosts();
+    const { allPosts } = usePosts();
 
 
     function getPostDetails(posts, postId) {
         return posts.find((post) => post._id === postId);
     }
 
-    const post = getPostDetails(posts, postId);
-    const fetchedPost = getPostDetails(receivedPost, postId)
+    const post = getPostDetails(allPosts, postId);
 
     return (
         <div className="w-full flex items-center justify-center flex-col">
@@ -22,7 +21,7 @@ const SinglePost = () => {
                 <h1 className="font-semibold">Post Details</h1>
                 <h1 className="text-2xl text-purple font-semibold">Spectrum</h1>
             </div>
-            <SinglePostDisplay {...post} {...fetchedPost}/>
+            <SinglePostDisplay {...post}/>
         </div>
     )
 }

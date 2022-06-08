@@ -1,5 +1,5 @@
 import { useState, useEffect, createContext, useContext, useReducer} from 'react'
-import {PostsReducer} from 'frontend/reducer/postsReducer';
+import {postsReducer} from 'frontend/reducer/postsReducer';
 import axios from "axios";
 
 const PostsContext = createContext(null);
@@ -12,7 +12,7 @@ const initialState = {
 const PostsProvider = ({children}) => {
     const [receivedPost, setReceivedPost] = useState([]);
     const [bookmarkedPost, setBookmarkedPost] = useState(false);
-    const [postsState, postsDispatch] = useReducer(PostsReducer, initialState);
+    const [postsState, postsDispatch] = useReducer(postsReducer, initialState);
 
     const fetchPosts = async () => {
         const postsData = await axios.get("/api/posts");
@@ -23,8 +23,11 @@ const PostsProvider = ({children}) => {
         fetchPosts()
     }, [])
 
+    const allPosts = [...receivedPost, ...postsState.posts];
+
+
     return (
-        <PostsContext.Provider value={{postsState, postsDispatch, receivedPost, bookmarkedPost, setBookmarkedPost}}>
+        <PostsContext.Provider value={{postsState, postsDispatch, bookmarkedPost, setBookmarkedPost, allPosts}}>
             {children}
         </PostsContext.Provider>
     )

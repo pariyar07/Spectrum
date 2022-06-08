@@ -1,5 +1,6 @@
 import { v4 as uuid } from "uuid";
-import { formatDate } from "../utils/authUtils";
+import date from 'date-and-time';
+
 
 /**
  * Posts can be added here.
@@ -14,7 +15,7 @@ export const posts = [
     username: "Tanay",
     accountName: "@tanaypratap",
     profileImage: "https://picsum.photos/60/60",
-    createdAt: formatDate(),
+    createdAt: date.format(new Date(), 'HH:mm, YYYY/MM/DD'),
     likes: {
       likeCount: 456,
       likedBy: [],
@@ -55,7 +56,7 @@ export const posts = [
     username: "Ratan Tata",
     accountName: "@ratantata",
     profileImage: "https://picsum.photos/60/60",
-    createdAt: formatDate(),
+    createdAt: date.format(new Date(), 'HH:mm, YYYY/MM/DD'),
     likes: {
       likeCount: 321,
       likedBy: [],
@@ -85,7 +86,7 @@ export const posts = [
     username: "NeoG",
     accountName: "@neogcamp",
     profileImage: "https://picsum.photos/60/60",
-    createdAt: formatDate(),
+    createdAt: date.format(new Date(), 'HH:mm, YYYY/MM/DD'),
     likes: {
       likeCount: 45,
       likedBy: [],
@@ -115,7 +116,7 @@ export const posts = [
     username: "Joe Rogan",
     accountName: "@joerogan",
     profileImage: "https://picsum.photos/60/60",
-    createdAt: formatDate(),
+    createdAt: date.format(new Date(), 'HH:mm, YYYY/MM/DD'),
     likes: {
       likeCount: 45,
       likedBy: [],
@@ -145,7 +146,7 @@ export const posts = [
     username: "Elon",
     accountName: "@elonmusk",
     profileImage: "https://picsum.photos/60/60",
-    createdAt: formatDate(),
+    createdAt: date.format(new Date(), 'HH:mm, YYYY/MM/DD'),
     likes: {
       likeCount: 569,
       likedBy: [],
@@ -175,7 +176,7 @@ export const posts = [
     username: "Ronaldo",
     accountName: "@cristiano",
     profileImage: "https://picsum.photos/60/60",
-    createdAt: formatDate(),
+    createdAt: date.format(new Date(), 'HH:mm, YYYY/MM/DD'),
     likes: {
       likeCount: 2007,
       likedBy: [],

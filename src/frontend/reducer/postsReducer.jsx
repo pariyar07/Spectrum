@@ -1,4 +1,4 @@
-export const PostsReducer = (state, action) => {
+export const postsReducer = (state, action) => {
     switch (action.type) {
         case "ADD_POST": {
             const newState = {

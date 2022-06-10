@@ -9,7 +9,7 @@ import { MdLocationOn } from "react-icons/md";
 import Posts from "frontend/components/posts.jsx";
 import { v4 as uuid } from "uuid";
 import { usePosts } from "frontend/context/postContext";
-import { useToast } from 'frontend/custom/useToast';
+import useToast from 'frontend/custom/useToast';
 import { useUser } from 'frontend/context/userContext';
 import date from 'date-and-time';
 import UserFeedModal from "frontend/components/userFeedModal";

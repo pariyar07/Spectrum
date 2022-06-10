@@ -2,7 +2,7 @@ import Login from "frontend/components/login";
 import axios from "axios";
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from 'frontend/context/authContext';
-import { useToast } from 'frontend/custom/useToast';
+import useToast from 'frontend/custom/useToast';
 
 export default function LogIn() {
     const { setIsLoggedIn } = useAuth();

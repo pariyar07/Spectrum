@@ -9,7 +9,7 @@ import { MdAccountCircle } from "react-icons/md";
 import { CgMoreO, CgMore } from "react-icons/cg";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "frontend/context/authContext";
-import { useToast } from 'frontend/custom/useToast';
+import useToast from 'frontend/custom/useToast';
 import {useUser} from "frontend/context/userContext.jsx";
 
 const LeftNav = () => {

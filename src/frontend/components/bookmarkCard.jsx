@@ -5,13 +5,15 @@ import { FaShare } from "react-icons/fa";
 import { HiBookmark } from "react-icons/hi";
 import { Link } from "react-router-dom";
 import { usePosts } from "frontend/context/postContext";
+import useToast from "frontend/custom/useToast"
 
 const BookmarkCard = ({ bookmark }) => {
-    const { postsDispatch, setBookmarkedPost } = usePosts();
+    const { postsDispatch } = usePosts();
+    const {showToast } = useToast();
 
     const unbookmarkHandler = () => {
-        setBookmarkedPost(false);
-        postsDispatch({ type: "BOOKMARK_POST", payload: bookmark })
+        postsDispatch({ type: "UNBOOKMARK_POST", payload: bookmark });
+        showToast("Removed from Bookmarks", "success")
     }
 
     return (<>
@@ -34,7 +36,7 @@ const BookmarkCard = ({ bookmark }) => {
                     <li className="flex items-center gap-1 cursor-pointer transition-all hover:text-dark-grey" title="scale this post"><AiOutlineRetweet /><span className="text-sm text-dark-grey">{bookmark.scale.scaleCount}</span></li>
                     <Link to={`/post/${bookmark._id}`}><li className="flex items-center gap-1 cursor-pointer transition-all hover:text-dark-grey" title="comment on this post"><MdModeComment /><span className="text-sm text-dark-grey">{bookmark.comments.length}</span></li></Link>
                     <li className="flex items-center gap-1 cursor-pointer transition-all hover:text-dark-grey" title="share post"><FaShare /><span className="text-sm text-dark-grey"></span></li>
-                    <li className="flex items-center gap-1 cursor-pointer transition-all hover:text-dark-grey" title="bookmark post" onClick={unbookmarkHandler}><HiBookmark /><span className="text-sm text-dark-grey"></span></li>
+                    <li className="flex items-center gap-1 cursor-pointer transition-all hover:text-dark-grey" title="unbookmark post" onClick={unbookmarkHandler}><HiBookmark className="text-purple"/><span className="text-sm text-dark-grey"></span></li>
                 </ul>
             </div>
         </div>

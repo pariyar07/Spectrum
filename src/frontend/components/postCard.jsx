@@ -10,17 +10,24 @@ import useToast from "frontend/custom/useToast";
 import { useUser } from "frontend/context/userContext";
 import ProfileModal from "frontend/components/profileModal";
 
-const PostCard = ({ post}) => {
+const PostCard = ({ post }) => {
+  const { postsDispatch } = usePosts();
   const [showProfileModal, setShowProfileModal] = useState(false);
-  const { postsDispatch, setBookmarkedPost } = usePosts();
+  const [postBookmarked, setPostBookmarked] = useState(false);
   const { loggedUserData } = useUser();
   const { showToast } = useToast();
 
   const bookmarkHandler = () => {
-    setBookmarkedPost(true);
     postsDispatch({ type: "BOOKMARK_POST", payload: post });
     showToast("Post Bookmarked", "success");
+    setPostBookmarked(true);
   };
+
+  const unbookmarkHandler = () => {
+    postsDispatch({ type: "UNBOOKMARK_POST", payload: post });
+    showToast("Removed from Bookmarks", "success");
+    setPostBookmarked(false);
+}
 
   return (
     <div className="w-full flex">
@@ -102,14 +109,21 @@ const PostCard = ({ post}) => {
             <FaShare />
             <span className="text-sm text-dark-grey"></span>
           </li>
-          <li
+          {postBookmarked ? <li
+            className="flex items-center gap-1 cursor-pointer transition-all hover:text-dark-grey"
+            title="bookmark post"
+            onClick={unbookmarkHandler}
+          >
+          <HiBookmark className="text-purple"/>
+            <span className="text-sm text-dark-grey"></span>
+          </li> : <li
             className="flex items-center gap-1 cursor-pointer transition-all hover:text-dark-grey"
             title="bookmark post"
             onClick={bookmarkHandler}
           >
-            <HiBookmark />
+          <HiBookmark/>
             <span className="text-sm text-dark-grey"></span>
-          </li>
+          </li> }
         </ul>
       </div>
     </div>

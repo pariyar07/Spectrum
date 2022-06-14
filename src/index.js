@@ -6,19 +6,19 @@ import { makeServer } from "./server";
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "frontend/context/authContext";
 import { ToastContainer } from "react-toastify";
-import { PostsProvider } from "frontend/context/postContext.jsx"
+import { PostsProvider } from "frontend/context/postContext.jsx";
 import { UserProvider } from "frontend/context/userContext";
 
 // Call make Server
 makeServer();
 
-const root = ReactDOM.createRoot(document.getElementById('root'))
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <UserProvider>
-        <PostsProvider>
-          <AuthProvider>
+      <AuthProvider>
+        <UserProvider>
+          <PostsProvider>
             <App />
             <ToastContainer
               position="bottom-right"
@@ -29,9 +29,9 @@ root.render(
               draggable="true"
               progress="undefined"
             />
-          </AuthProvider>
-        </PostsProvider>
-      </UserProvider>
+          </PostsProvider>
+        </UserProvider>
+      </AuthProvider>
     </BrowserRouter>
-  </React.StrictMode>,
+  </React.StrictMode>
 );

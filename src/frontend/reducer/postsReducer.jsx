@@ -2,13 +2,13 @@ export const postsReducer = (state, action) => {
     switch (action.type) {
         case "ADD_POST": {
             return {
-                posts: [...state.posts, action.payload],
+                posts: [...state.posts, {...action.payload}],
                 bookmark: []
             }
         }
         case "BOOKMARK_POST": {
             return {
-                ...state, bookmarks: [...state.bookmarks, action.payload]
+                ...state, bookmarks: [...state.bookmarks, {...action.payload}]
             }
         }
         case "UNBOOKMARK_POST": {

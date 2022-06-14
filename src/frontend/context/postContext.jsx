@@ -11,7 +11,6 @@ const initialState = {
 
 const PostsProvider = ({children}) => {
     const [receivedPost, setReceivedPost] = useState([]);
-    const [bookmarkedPost, setBookmarkedPost] = useState(false);
     const [postsState, postsDispatch] = useReducer(postsReducer, initialState);
 
     const fetchPosts = async () => {
@@ -20,14 +19,13 @@ const PostsProvider = ({children}) => {
     }
 
     useEffect(() => {
-        fetchPosts()
+        fetchPosts();
     }, [])
 
-    const allPosts = [...receivedPost, ...postsState.posts];
-
+    const allPosts = [...receivedPost, ...postsState.posts]
 
     return (
-        <PostsContext.Provider value={{postsState, postsDispatch, bookmarkedPost, setBookmarkedPost, allPosts}}>
+        <PostsContext.Provider value={{postsState, postsDispatch, allPosts}}>
             {children}
         </PostsContext.Provider>
     )

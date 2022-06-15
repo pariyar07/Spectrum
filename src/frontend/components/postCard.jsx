@@ -14,6 +14,8 @@ const PostCard = ({ post }) => {
   const { postsDispatch } = usePosts();
   const [showProfileModal, setShowProfileModal] = useState(false);
   const [postBookmarked, setPostBookmarked] = useState(false);
+  const [postLiked, setPostLiked] = useState(false);
+  const [likesCount, setLikesCount] = useState(post.likes.likeCount);
   const { loggedUserData } = useUser();
   const { showToast } = useToast();
 
@@ -28,6 +30,19 @@ const PostCard = ({ post }) => {
     showToast("Removed from Bookmarks", "success");
     setPostBookmarked(false);
 }
+
+const postLikesHandler = () => {
+  setLikesCount(likes => likes + 1);
+  showToast("Post Liked", "success");
+  setPostLiked(true);
+}
+
+const postUnlikeHandler = () => {
+  setLikesCount(likes => likes - 1);
+  showToast("Post Unliked", "success");
+  setPostLiked(false);
+}
+
 
   return (
     <div className="w-full flex">
@@ -73,15 +88,25 @@ const PostCard = ({ post }) => {
           />
         )}
         <ul className="flex justify-between mt-4 text-xl">
-          <li
+          {postLiked ? <li
             className="flex items-center gap-1 cursor-pointer transition-all hover:text-dark-grey"
             title="like a post"
+            onClick={postUnlikeHandler}
+          >
+            <AiFillLike className="text-red"/>
+            <span className="text-sm text-dark-grey">
+              {likesCount}
+            </span>
+          </li> : <li
+            className="flex items-center gap-1 cursor-pointer transition-all hover:text-dark-grey"
+            title="like a post"
+            onClick={postLikesHandler}
           >
             <AiFillLike />
             <span className="text-sm text-dark-grey">
-              {post.likes.likeCount}
+              {likesCount}
             </span>
-          </li>
+          </li>}
           <li
             className="flex items-center gap-1 cursor-pointer transition-all hover:text-dark-grey"
             title="scale this post"

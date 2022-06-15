@@ -18,6 +18,7 @@ import { useUser } from "frontend/context/userContext";
 import date from "date-and-time";
 import UserFeedModal from "frontend/components/userFeedModal";
 import HomepagePost from "frontend/components/homepagePost";
+import Picker from "emoji-picker-react";
 
 const Homepage = () => {
   const [showUserFeedModal, setShowUserFeedModal] = useState(false);
@@ -26,6 +27,12 @@ const Homepage = () => {
   const { postsDispatch } = usePosts();
   const { showToast } = useToast();
   const { loggedUserData } = useUser();
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+
+  const onEmojiClick = (event, emojiObject) => {
+    setContent((prevInput) => prevInput + emojiObject.emoji);
+    setShowEmojiPicker(false);
+  };
 
   const selectImageFile = (e) => {
     e.preventDefault();
@@ -123,7 +130,7 @@ const Homepage = () => {
             </p>
           )}
           <div className="flex justify-between items-center ml-14 text-xl">
-            <div className="flex gap-4">
+            <div className="flex gap-4 relative">
               <label htmlFor="image-upload">
                 <BsImageFill className="cursor-pointer" title="upload image" />
               </label>
@@ -138,7 +145,13 @@ const Homepage = () => {
               <BsFillEmojiSmileFill
                 className="cursor-pointer"
                 title="use emoji"
+                onClick={() => setShowEmojiPicker((active) => !active)}
               />
+              {showEmojiPicker && (
+                <div className="absolute top-8 left-28 z-50">
+                  <Picker onEmojiClick={onEmojiClick} />
+                </div>
+              )}
               <BsFillCalendarCheckFill
                 className="cursor-pointer"
                 title="schedule"

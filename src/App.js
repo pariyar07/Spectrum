@@ -6,6 +6,7 @@ import Login from "frontend/pages/login/login";
 import SignUp from "frontend/pages/signup/signup";
 import { RequiresAuth } from "frontend/services/requiresAuth.jsx";
 import Bookmark from "frontend/pages/bookmark/bookmark.jsx";
+import Explore from "frontend/pages/explore/explore.jsx";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/" element={<RequiresAuth><Homepage /></RequiresAuth>} />
+        <Route path="/explore" element={<RequiresAuth><Explore /></RequiresAuth>} />
         <Route path="/bookmarks" element={<RequiresAuth><Bookmark /></RequiresAuth>} />
         <Route path="/post/:postId" element={<RequiresAuth><SinglePost /></RequiresAuth>} />
         <Route path="/profile" element={<RequiresAuth><Profile/></RequiresAuth>} />

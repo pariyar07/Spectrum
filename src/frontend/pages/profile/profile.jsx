@@ -108,29 +108,29 @@ const Profile = () => {
           </div>
         </section>
         <section>
-          <ul className="flex justify-between border-grey border-b">
+          <ul className="flex justify-around border-grey border-b">
             <li
-              className="px-8 py-2 text-lg font-semibold transition-all hover:bg-medium-grey hover:text-white cursor-pointer border-b-2 border-purple"
+              className="px-8 py-2 rounded-full text-lg font-semibold transition-all hover:bg-medium-grey hover:text-white cursor-pointer border-b-2 border-purple"
               title="Posts"
             >
               Posts
             </li>
             <li
-              className="px-8 py-2 text-lg font-semibold transition-all hover:bg-medium-grey hover:text-white cursor-pointer"
+              className="px-8 py-2 rounded-full text-lg font-semibold transition-all hover:bg-medium-grey hover:text-white cursor-pointer"
               title="Posts & replies"
               onClick={() => showToast("Coming Soon", "warning")}
             >
               Posts & replies
             </li>
             <li
-              className="px-8 py-2 text-lg font-semibold transition-all hover:bg-medium-grey hover:text-white cursor-pointer"
+              className="px-8 py-2 rounded-full text-lg font-semibold transition-all hover:bg-medium-grey hover:text-white cursor-pointer"
               title="Media"
               onClick={() => showToast("Coming Soon", "warning")}
             >
               Media
             </li>
             <li
-              className="px-8 py-2 text-lg font-semibold transition-all hover:bg-medium-grey hover:text-white cursor-pointer"
+              className="px-8 py-2 rounded-full text-lg font-semibold transition-all hover:bg-medium-grey hover:text-white cursor-pointer"
               title="Likes"
               onClick={() => showToast("Coming Soon", "warning")}
             >

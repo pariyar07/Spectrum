@@ -8,15 +8,15 @@ import { FaListAlt } from "react-icons/fa";
 import { MdAccountCircle } from "react-icons/md";
 import { CgMoreO, CgMore } from "react-icons/cg";
 import { NavLink } from "react-router-dom";
-import { useAuth } from "frontend/context/authContext";
 import useToast from "frontend/custom/useToast";
-import { useUser } from "frontend/context/userContext.jsx";
+import { logoutUser } from "frontend/features/auth/authSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const LeftNav = () => {
   const [toggleLogoutButton, setToggleLogoutButton] = useState(false);
-  const { setIsLoggedIn } = useAuth();
   const { showToast } = useToast();
-  const { loggedUserData } = useUser();
+  const dispatch = useDispatch();
+  const { user } = useSelector((store) => store.auth);
 
   function navActive({ isActive }) {
     return {
@@ -26,7 +26,7 @@ const LeftNav = () => {
   }
 
   const handleLogout = () => {
-    setIsLoggedIn(false);
+    dispatch(logoutUser());
     showToast("Successfully Logged out", "success");
   };
 
@@ -100,15 +100,15 @@ const LeftNav = () => {
         </div>
         <div className="flex items-center gap-4 cursor-pointer px-2 py-2 rounded-full hover:bg-purple hover:text-white transition ease-out delay-100 relative">
           <img
-            src={loggedUserData.profileImage}
+            src={user.profileImage}
             alt="profile pic"
             className="w-11 h-11 rounded-full shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)]"
           />
           <div className="text-sm">
             <h3 className="font-medium">
-              {loggedUserData.firstName} {loggedUserData.lastName}
+              {user.firstName} {user.lastName}
             </h3>
-            <p>@{loggedUserData.firstName}</p>
+            <p>@{user.firstName}</p>
           </div>
           <CgMore
             className="text-xl transition-transform hover:scale-125"

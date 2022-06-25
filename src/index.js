@@ -4,10 +4,9 @@ import "./index.css";
 import App from "./App";
 import { makeServer } from "./server";
 import { BrowserRouter } from "react-router-dom";
-import { AuthProvider } from "frontend/context/authContext";
 import { ToastContainer } from "react-toastify";
-import { PostsProvider } from "frontend/context/postContext.jsx";
-import { UserProvider } from "frontend/context/userContext";
+import { store } from "frontend/app/store";
+import { Provider } from "react-redux";
 
 // Call make Server
 makeServer();
@@ -16,9 +15,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <AuthProvider>
-        <UserProvider>
-          <PostsProvider>
+          <Provider store={store}>
             <App />
             <ToastContainer
               position="bottom-right"
@@ -29,9 +26,7 @@ root.render(
               draggable="true"
               progress="undefined"
             />
-          </PostsProvider>
-        </UserProvider>
-      </AuthProvider>
+          </Provider>
     </BrowserRouter>
   </React.StrictMode>
 );

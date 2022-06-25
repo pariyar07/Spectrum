@@ -1,57 +1,44 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import LeftNav from "frontend/components/leftNav.jsx";
 import RightNav from "frontend/components/rightNav.jsx";
 import { IoIosArrowBack } from "react-icons/io";
 import { MdLocationPin } from "react-icons/md";
 import { BiLink } from "react-icons/bi";
 import { BsCalendarEventFill } from "react-icons/bs";
-import Modal from "frontend/components/modal.jsx";
-import { useUser } from "frontend/context/userContext";
-import { usePosts } from "frontend/context/postContext";
+import Modal from "frontend/components/modal";
+import FollowModal from "frontend/components/followModal";
 import PostCard from "frontend/components/postCard";
 import useToast from "frontend/custom/useToast";
+import { useSelector } from "react-redux";
 
 const Profile = () => {
-  const { loggedUserData } = useUser();
   const [showModal, setShowModal] = useState(false);
-  const [editUserData, setEditUserData] = useState(loggedUserData);
-  const {
-    postsState: { posts },
-  } = usePosts();
+  const [showFollowingModal, setShowFollowingModal] = useState(false);
   const { showToast } = useToast();
-
-  useEffect(() => {
-    const newData = localStorage.getItem("edited-data");
-    if (newData) {
-      setEditUserData(JSON.parse(newData));
-    }
-  }, []);
+  const { posts } = useSelector((store) => store.posts);
+  const { user } = useSelector((store) => store.auth);
 
   return (
     <>
       <LeftNav />
       <main
-        className="flex flex-col max-w-2xl border-grey border-x gap-2"
-        key={editUserData._id}
+        className="flex flex-col max-w-2xl border-grey border-x gap-2 relative"
+        key={user._id}
       >
         <section className="w-2xl">
           <div className="flex items-center gap-4">
             <IoIosArrowBack className="text-3xl" />
             <div>
-              <p
-                className="text-xl font-semibold"
-                value={editUserData.firstName}
-              >
-                {editUserData.firstName}
+              <p className="text-xl font-semibold" value={user.firstName}>
+                {user.firstName}
               </p>
-              <p className="text-sm">{posts.length} Posts</p>
+              <p className="text-sm">
+                {posts.filter((post) => post.uploadedPost).length} Posts
+              </p>
             </div>
           </div>
           <div className="flex flex-col gap-4 w-full items-end relative">
-            <img
-              src={editUserData.backgroundImage}
-              alt="profile backgroung img"
-            />
+            <img src={user.backgroundImage} alt="profile backgroung img" />
             <button
               className="border-2 border-dark-grey px-6 py-1 rounded-full font-semibold text-lg w-fit mr-4"
               onClick={() => setShowModal(true)}
@@ -59,23 +46,23 @@ const Profile = () => {
               Edit Profile
             </button>
             <img
-              src={editUserData.profileImage}
+              src={user.profileImage}
               alt="profile pic"
               className="rounded-full w-32 h-32 absolute top-1/2 left-4 shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)]"
-              value={editUserData.profileImage}
+              value={user.profileImage}
             />
           </div>
           <div>
             <div className="ml-6 mt-4">
               <p className="text-2xl font-bold">
-                {editUserData.firstName} {editUserData.lastName}
+                {user.firstName} {user.lastName}
               </p>
               <p className="text-sm text-dark-grey font-medium">
-                @{editUserData.firstName}
+                @{user.firstName}
               </p>
             </div>
-            <p className="mx-6 mt-4 font-medium" value={editUserData.bio}>
-              {editUserData.bio}
+            <p className="mx-6 mt-4 font-medium" value={user.bio}>
+              {user.bio}
             </p>
             <ul className="flex gap-6 mx-6 my-4">
               <li className="flex text-dark-grey font-medium items-center gap-1">
@@ -85,11 +72,11 @@ const Profile = () => {
               <li className="flex text-dark-grey font-medium items-center gap-1">
                 <BiLink />
                 <a
-                  href={editUserData.profileLink}
+                  href={user.profileLink}
                   className="text-link"
-                  defaultValue={editUserData.profileLink}
+                  defaultValue={user.profileLink}
                 >
-                  {editUserData.profileLink}
+                  {user.profileLink}
                 </a>
               </li>
               <li className="flex text-dark-grey font-medium items-center gap-1">
@@ -98,11 +85,16 @@ const Profile = () => {
               </li>
             </ul>
             <div className="flex gap-6 mx-6">
-              <p className="font-semibold">
-                0 <span className="text-dark-grey font-normal">Following</span>
+              <p
+                className="font-semibold cursor-pointer"
+                onClick={() => setShowFollowingModal(true)}
+              >
+                {user.following.length}&nbsp;
+                <span className="text-dark-grey font-normal">Following</span>
               </p>
-              <p className="font-semibold">
-                0 <span className="text-dark-grey font-normal">Followers</span>
+              <p className="font-semibold cursor-pointer">
+                {user.followers.length}&nbsp;
+                <span className="text-dark-grey font-normal">Followers</span>
               </p>
             </div>
           </div>
@@ -139,6 +131,7 @@ const Profile = () => {
           </ul>
         </section>
         {posts
+          .filter((post) => post.uploadedPost === true)
           .map((post) => (
             <div
               className="flex flex-col border-b border-grey gap px-2 pb-4 gap-4"
@@ -149,12 +142,11 @@ const Profile = () => {
           ))
           .reverse()}
       </main>
-      <Modal
-        showModal={showModal}
-        setShowModal={setShowModal}
-        editUserData={editUserData}
-        setEditUserData={setEditUserData}
+      <FollowModal
+        showModal={showFollowingModal}
+        setShowModal={setShowFollowingModal}
       />
+      <Modal showModal={showModal} setShowModal={setShowModal} />
       <RightNav />
     </>
   );

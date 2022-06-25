@@ -1,35 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import UserSection from "frontend/components/userSection";
 import ExploreContent from "frontend/components/exploreContent.jsx";
 import { useLocation } from "react-router-dom";
-import { v4 as uuid } from "uuid";
+import { useDispatch, useSelector } from "react-redux";
+import { loadUsers } from "frontend/features/users/userSlice";
 
 const RightNav = () => {
   const location = useLocation();
   const path = location.pathname;
   // eslint-disable-next-line
   const [display, setDisplay] = useState(path === "/explore" ? false : true);
+  const dispatch = useDispatch();
+  const { users } = useSelector((store) => store.users);
+  const { user } = useSelector((store) => store.auth);
 
-  const otherUsers = [
-    {
-      _id: uuid(),
-      firstName: "Tanay",
-      lastName: "Pratap",
-      userName: "tanaypratap",
-    },
-    {
-      _id: uuid(),
-      firstName: "Elon",
-      lastName: "Musk",
-      userName: "elonmusk",
-    },
-    {
-      _id: uuid(),
-      firstName: "Cristiano",
-      lastName: "Ronaldo",
-      userName: "cristiano",
-    },
-  ];
+  useEffect(() => {
+    dispatch(loadUsers());
+  }, [dispatch]);
 
   return (
     <div className="flex flex-col w-6/12">
@@ -43,9 +30,11 @@ const RightNav = () => {
       {display && <ExploreContent />}
       <div className="flex flex-col gap-2 px-6 mt-4 bg-grey rounded-2xl mx-6 py-4 mb-4">
         <h1 className="text-2xl font-medium mb-2">Who to follow</h1>
-        {otherUsers.map((user) => {
-          return <UserSection user={user} key={user._id} />;
-        })}
+        {users
+          .filter((otherUser) => otherUser._id !== user._id)
+          .map((user) => {
+            return <UserSection user={user} key={user._id} />;
+          })}
         <p className="font-medium text-purple cursor-pointer hover:text-dark-purple">
           Show more
         </p>

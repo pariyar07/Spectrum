@@ -16,37 +16,27 @@ export const posts = [
     accountName: "@tanaypratap",
     profileImage: "https://picsum.photos/60/60",
     createdAt: date.format(new Date(), 'HH:mm, YYYY/MM/DD'),
-    likes: {
-      likeCount: 456,
-      likedBy: [],
-    },
-    scale: {
-      scaleCount: 129,
-      scaledBy: []
-    },
+    likes: 456,
+    scale: 129,
     comments: [
       {
         _id: uuid(),
         username: "Satyam",
         text: "I didn't think this way before",
-        likes: []
       },
       {
         _id: uuid(),
         username: "Elon",
         text: "Awesome",
-        likes: []
       },
       {
         _id: uuid(),
         username: "Ronaldo",
         text: "Cool!",
-        likes: []
       },{
         _id: uuid(),
         username: "Varun",
         text: "Great...",
-        likes: []
       },
     ],
   },{
@@ -57,26 +47,18 @@ export const posts = [
     accountName: "@ratantata",
     profileImage: "https://picsum.photos/60/60",
     createdAt: date.format(new Date(), 'HH:mm, YYYY/MM/DD'),
-    likes: {
-      likeCount: 321,
-      likedBy: [],
-    },
-    scale: {
-      scaleCount: 125,
-      scaledBy: []
-    },
+    likes: 321,
+    scale: 125,
     comments: [
       {
         _id: uuid(),
         username: "Tanay",
         text: "Interesting",
-        likes: []
       },
       {
         _id: uuid(),
         username: "Elon",
         text: "Wow!",
-        likes: []
       },
     ],
   },{
@@ -87,86 +69,18 @@ export const posts = [
     accountName: "@neogcamp",
     profileImage: "https://picsum.photos/60/60",
     createdAt: date.format(new Date(), 'HH:mm, YYYY/MM/DD'),
-    likes: {
-      likeCount: 45,
-      likedBy: [],
-    },
-    scale: {
-      scaleCount: 16,
-      scaledBy: []
-    },
+    likes: 45,
+    scale: 16,
     comments: [
       {
         _id: uuid(),
         username: "Tanay",
         text: "Interesting",
-        likes: []
       },
       {
         _id: uuid(),
         username: "Satyam",
         text: "Wow!",
-        likes: []
-      },
-    ],
-  },{
-    _id: uuid(),
-    content: "This is a really good documentary about a sad situation where people living on boats in San Francisco are being kicked out of their homes. Anchored Out: Evicted at Sea | The New Yorker Documentary https://youtu.be/TSoDkEk-eYE via @YouTube",
-    image: "",
-    username: "Joe Rogan",
-    accountName: "@joerogan",
-    profileImage: "https://picsum.photos/60/60",
-    createdAt: date.format(new Date(), 'HH:mm, YYYY/MM/DD'),
-    likes: {
-      likeCount: 45,
-      likedBy: [],
-    },
-    scale: {
-      scaleCount: 16,
-      scaledBy: []
-    },
-    comments: [
-      {
-        _id: uuid(),
-        username: "Satyam",
-        text: "Interesting",
-        likes: []
-      },
-      {
-        _id: uuid(),
-        username: "Elon",
-        text: "Wow!",
-        likes: []
-      },
-    ],
-  },{
-    _id: uuid(),
-    content: "Ya know, it’s pretty damn great to be able to talk to people from all walks of life and many countries on Twitter! So much to be learned, even from the harshest critics. Basically … I’m just saying I love all you crazy people ♥️♥️",
-    image: "",
-    username: "Elon",
-    accountName: "@elonmusk",
-    profileImage: "https://picsum.photos/60/60",
-    createdAt: date.format(new Date(), 'HH:mm, YYYY/MM/DD'),
-    likes: {
-      likeCount: 569,
-      likedBy: [],
-    },
-    scale: {
-      scaleCount: 434,
-      scaledBy: []
-    },
-    comments: [
-      {
-        _id: uuid(),
-        username: "Tanay",
-        text: "Interesting",
-        likes: []
-      },
-      {
-        _id: uuid(),
-        username: "Elon",
-        text: "Wow!",
-        likes: []
       },
     ],
   },{
@@ -177,27 +91,63 @@ export const posts = [
     accountName: "@cristiano",
     profileImage: "https://picsum.photos/60/60",
     createdAt: date.format(new Date(), 'HH:mm, YYYY/MM/DD'),
-    likes: {
-      likeCount: 2007,
-      likedBy: [],
-    },
-    scale: {
-      scaleCount: 1545,
-      scaledBy: []
-    },
+    likes: 2007,
+    scale: 1545,
     comments: [
       {
         _id: uuid(),
         username: "Tanay",
         text: "Interesting",
-        likes: []
       },
       {
         _id: uuid(),
         username: "Elon",
         text: "Wow!",
-        likes: []
       },
     ],
-  }
+  },{
+    _id: uuid(),
+    content: "This is a really good documentary about a sad situation where people living on boats in San Francisco are being kicked out of their homes. Anchored Out: Evicted at Sea | The New Yorker Documentary https://youtu.be/TSoDkEk-eYE via @YouTube",
+    image: "",
+    username: "Joe Rogan",
+    accountName: "@joerogan",
+    profileImage: "https://picsum.photos/60/60",
+    createdAt: date.format(new Date(), 'HH:mm, YYYY/MM/DD'),
+    likes: 45,
+    scale: 16,
+    comments: [
+      {
+        _id: uuid(),
+        username: "Satyam",
+        text: "Interesting",
+      },
+      {
+        _id: uuid(),
+        username: "Elon",
+        text: "Wow!",
+      },
+    ],
+  },{
+    _id: uuid(),
+    content: "Ya know, it’s pretty damn great to be able to talk to people from all walks of life and many countries on Twitter! So much to be learned, even from the harshest critics. Basically … I’m just saying I love all you crazy people ♥️♥️",
+    image: "",
+    username: "Elon",
+    accountName: "@elonmusk",
+    profileImage: "https://picsum.photos/60/60",
+    createdAt: date.format(new Date(), 'HH:mm, YYYY/MM/DD'),
+    likes: 569,
+    scale: 434,
+    comments: [
+      {
+        _id: uuid(),
+        username: "Tanay",
+        text: "Interesting",
+      },
+      {
+        _id: uuid(),
+        username: "Elon",
+        text: "Wow!",
+      },
+    ],
+  },
 ];

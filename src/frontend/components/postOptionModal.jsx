@@ -1,16 +1,19 @@
+import { useState } from "react";
 import { AiFillEdit } from "react-icons/ai";
 import { MdDelete } from "react-icons/md";
-import { usePosts } from "frontend/context/postContext";
+import { useDispatch } from "react-redux";
+import { deletePost } from "frontend/features/posts/postsSlice";
+import useToast from "frontend/custom/useToast";
+import EditPostModal from "frontend/components/editPostModal";
 
-const ProfileModal = ({ post }) => {
-  const {postsDispatch } = usePosts();
-
-  const editPostHandler = () => {
-    postsDispatch({ type: "EDIT_POST", payload: post });
-  };
+const PostOptionModal = ({ post }) => {
+  const [showEditModal, setShowEditModal] = useState(false);
+  const dispatch = useDispatch();
+  const { showToast } = useToast();
 
   const deletePostHandler = () => {
-    postsDispatch({ type: "DELETE_POST", payload: post });
+    dispatch(deletePost(post));
+    showToast("Post Deleted", "success");
   };
 
   return (
@@ -19,7 +22,7 @@ const ProfileModal = ({ post }) => {
         <li
           className="flex items-center px-8 py-2 cursor-pointer transition-all hover:bg-dark-purple"
           title="Edit Post"
-          onClick={editPostHandler}
+          onClick={() => setShowEditModal(true)}
         >
           <AiFillEdit />
           &nbsp; Edit Post
@@ -33,8 +36,13 @@ const ProfileModal = ({ post }) => {
           &nbsp; Delete Post
         </li>
       </ul>
+      <EditPostModal
+        showModal={showEditModal}
+        setShowModal={setShowEditModal}
+        post={post}
+      />
     </>
   );
 };
 
-export default ProfileModal;
+export default PostOptionModal;

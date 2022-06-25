@@ -12,22 +12,23 @@ import { BiPoll } from "react-icons/bi";
 import { GiCancel } from "react-icons/gi";
 import { MdLocationOn } from "react-icons/md";
 import { v4 as uuid } from "uuid";
-import { usePosts } from "frontend/context/postContext";
 import useToast from "frontend/custom/useToast";
-import { useUser } from "frontend/context/userContext";
 import date from "date-and-time";
-import UserFeedModal from "frontend/components/userFeedModal";
+import FeedSortModal from "frontend/components/feedSortModal";
 import HomepagePost from "frontend/components/homepagePost";
 import Picker from "emoji-picker-react";
+import { useSelector, useDispatch } from "react-redux";
+import { addPost } from "frontend/features/posts/postsSlice";
 
 const Homepage = () => {
-  const [showUserFeedModal, setShowUserFeedModal] = useState(false);
+  const [showSortModal, setShowSortModal] = useState(false);
   const [content, setContent] = useState("");
   const [image, setImage] = useState("");
-  const { postsDispatch } = usePosts();
   const { showToast } = useToast();
-  const { loggedUserData } = useUser();
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const { status } = useSelector((store) => store.posts);
+  const { user } = useSelector((store) => store.auth);
+  const dispatch = useDispatch();
 
   const onEmojiClick = (event, emojiObject) => {
     setContent((prevInput) => prevInput + emojiObject.emoji);
@@ -54,15 +55,10 @@ const Homepage = () => {
           accountName: "@admin",
           profileImage: "https://picsum.photos/60/60",
           createdAt: date.format(new Date(), "HH:mm, YYYY/MM/DD"),
-          likes: {
-            likeCount: 0,
-            likedBy: [],
-          },
-          scale: {
-            scaleCount: 0,
-            scaledBy: [],
-          },
+          likes: 0,
+          scale: 0,
           comments: [],
+          uploadedPost: true,
         }
       : {
           _id: uuid(),
@@ -72,17 +68,12 @@ const Homepage = () => {
           accountName: "@admin",
           profileImage: "https://picsum.photos/60/60",
           createdAt: date.format(new Date(), "HH:mm, YYYY/MM/DD"),
-          likes: {
-            likeCount: 0,
-            likedBy: [],
-          },
-          scale: {
-            scaleCount: 0,
-            scaledBy: [],
-          },
+          likes: 0,
+          scale: 0,
           comments: [],
+          uploadedPost: true,
         };
-    postsDispatch({ type: "ADD_POST", payload: newPost });
+    dispatch(addPost(newPost));
     showToast("Post Uploaded", "success");
     setContent("");
     setImage("");
@@ -101,14 +92,14 @@ const Homepage = () => {
           <BsSortDownAlt
             className="cursor-pointer"
             title="sort posts"
-            onClick={() => setShowUserFeedModal((active) => !active)}
+            onClick={() => setShowSortModal((active) => !active)}
           />
-          <UserFeedModal showUserFeedModal={showUserFeedModal} />
+          <FeedSortModal showUserFeedModal={showSortModal} />
         </div>
         <form className="flex flex-col gap-2 w-full mt-4 px-6 py-2 border-b border-grey">
           <div className="flex gap-2">
             <img
-              src={loggedUserData.profileImage}
+              src={user.profileImage}
               alt="profile pic"
               className="w-11 h-11 rounded-full shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)]"
             />
@@ -172,12 +163,14 @@ const Homepage = () => {
         </form>
         <div className="flex flex-col gap-2">
           <HomepagePost />
-          <span
-            className="font-semibold m-auto my-4 cursor-pointer transition-all hover:scale-110"
-            title="load more"
-          >
-            Load More...
-          </span>
+          {status === "success" && (
+            <span
+              className="font-semibold m-auto my-4 cursor-pointer transition-all hover:scale-110"
+              title="load more"
+            >
+              Load More...
+            </span>
+          )}
         </div>
       </main>
       <RightNav />

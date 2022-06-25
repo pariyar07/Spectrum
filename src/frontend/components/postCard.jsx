@@ -1,53 +1,62 @@
-import {useState} from "react";
+import { useState } from "react";
 import { AiOutlineRetweet, AiFillLike } from "react-icons/ai";
 import { MdModeComment } from "react-icons/md";
 import { BsThreeDots } from "react-icons/bs";
 import { FaShare } from "react-icons/fa";
 import { HiBookmark } from "react-icons/hi";
 import { Link } from "react-router-dom";
-import { usePosts } from "frontend/context/postContext";
 import useToast from "frontend/custom/useToast";
-import { useUser } from "frontend/context/userContext";
-import ProfileModal from "frontend/components/profileModal";
+import PostOptionModal from "frontend/components/postOptionModal";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  likePost,
+  unlikePost,
+  bookmarkPost,
+  unBookmarkPost,
+} from "frontend/features/posts/postsSlice";
 
 const PostCard = ({ post }) => {
-  const { postsDispatch } = usePosts();
   const [showProfileModal, setShowProfileModal] = useState(false);
   const [postBookmarked, setPostBookmarked] = useState(false);
   const [postLiked, setPostLiked] = useState(false);
-  const [likesCount, setLikesCount] = useState(post.likes.likeCount);
-  const { loggedUserData } = useUser();
   const { showToast } = useToast();
+  const dispatch = useDispatch();
+  const { user } = useSelector((store) => store.auth);
 
   const bookmarkHandler = () => {
-    postsDispatch({ type: "BOOKMARK_POST", payload: post });
+    dispatch(bookmarkPost(post));
     showToast("Post Bookmarked", "success");
     setPostBookmarked(true);
   };
 
   const unbookmarkHandler = () => {
-    postsDispatch({ type: "UNBOOKMARK_POST", payload: post });
+    dispatch(unBookmarkPost(post));
     showToast("Removed from Bookmarks", "success");
     setPostBookmarked(false);
-}
+  };
 
-const postLikesHandler = () => {
-  setLikesCount(likes => likes + 1);
-  showToast("Post Liked", "success");
-  setPostLiked(true);
-}
+  const postLikesHandler = () => {
+    dispatch(likePost(post._id));
+    showToast("Post Liked", "success");
+    setPostLiked(true);
+  };
 
-const postUnlikeHandler = () => {
-  setLikesCount(likes => likes - 1);
-  showToast("Post Unliked", "success");
-  setPostLiked(false);
-}
+  const postUnlikeHandler = () => {
+    dispatch(unlikePost(post._id));
+    showToast("Post Unliked", "success");
+    setPostLiked(false);
+  };
 
+  const profileImageHandler = () => {
+    return post.uploadedPost === true
+      ? user.profileImage
+      : "https://picsum.photos/60/60";
+  };
 
   return (
     <div className="w-full flex">
       <img
-        src={loggedUserData.profileImage}
+        src={profileImageHandler()}
         alt="profile pic"
         className="rounded-full h-14 w-14 mr-3 cursor-pointer"
         title="profile pic"
@@ -67,13 +76,14 @@ const postUnlikeHandler = () => {
             <span>·</span>
             <span className="text-dark-grey text-sm">{post.createdAt}</span>
           </div>
-          <BsThreeDots
-            className="cursor-pointer"
-            title="more"
-            onClick={() => 
-            setShowProfileModal(active => !active)}
-          />
-          {showProfileModal && <ProfileModal/>}
+          {post.uploadedPost === true && (
+            <BsThreeDots
+              className="cursor-pointer"
+              title="more"
+              onClick={() => setShowProfileModal((active) => !active)}
+            />
+          )}
+          {showProfileModal && <PostOptionModal post={post} />}
         </div>
         <Link to={`/post/${post._id}`}>
           <p>{post.content}</p>
@@ -88,33 +98,31 @@ const postUnlikeHandler = () => {
           />
         )}
         <ul className="flex justify-between mt-4 text-xl">
-          {postLiked ? <li
-            className="flex items-center gap-1 cursor-pointer transition-all hover:text-dark-grey"
-            title="like a post"
-            onClick={postUnlikeHandler}
-          >
-            <AiFillLike className="text-red"/>
-            <span className="text-sm text-dark-grey">
-              {likesCount}
-            </span>
-          </li> : <li
-            className="flex items-center gap-1 cursor-pointer transition-all hover:text-dark-grey"
-            title="like a post"
-            onClick={postLikesHandler}
-          >
-            <AiFillLike />
-            <span className="text-sm text-dark-grey">
-              {likesCount}
-            </span>
-          </li>}
+          {postLiked ? (
+            <li
+              className="flex items-center gap-1 cursor-pointer transition-all hover:text-dark-grey"
+              title="like a post"
+              onClick={postUnlikeHandler}
+            >
+              <AiFillLike className="text-red" />
+              <span className="text-sm text-dark-grey">{post.likes}</span>
+            </li>
+          ) : (
+            <li
+              className="flex items-center gap-1 cursor-pointer transition-all hover:text-dark-grey"
+              title="like a post"
+              onClick={postLikesHandler}
+            >
+              <AiFillLike />
+              <span className="text-sm text-dark-grey">{post.likes}</span>
+            </li>
+          )}
           <li
             className="flex items-center gap-1 cursor-pointer transition-all hover:text-dark-grey"
             title="scale this post"
           >
             <AiOutlineRetweet />
-            <span className="text-sm text-dark-grey">
-              {post.scale.scaleCount}
-            </span>
+            <span className="text-sm text-dark-grey">{post.scale}</span>
           </li>
           <Link to={`/post/${post._id}`}>
             <li
@@ -134,21 +142,25 @@ const postUnlikeHandler = () => {
             <FaShare />
             <span className="text-sm text-dark-grey"></span>
           </li>
-          {postBookmarked ? <li
-            className="flex items-center gap-1 cursor-pointer transition-all hover:text-dark-grey"
-            title="bookmark post"
-            onClick={unbookmarkHandler}
-          >
-          <HiBookmark className="text-purple"/>
-            <span className="text-sm text-dark-grey"></span>
-          </li> : <li
-            className="flex items-center gap-1 cursor-pointer transition-all hover:text-dark-grey"
-            title="bookmark post"
-            onClick={bookmarkHandler}
-          >
-          <HiBookmark/>
-            <span className="text-sm text-dark-grey"></span>
-          </li> }
+          {postBookmarked ? (
+            <li
+              className="flex items-center gap-1 cursor-pointer transition-all hover:text-dark-grey"
+              title="bookmark post"
+              onClick={unbookmarkHandler}
+            >
+              <HiBookmark className="text-purple" />
+              <span className="text-sm text-dark-grey"></span>
+            </li>
+          ) : (
+            <li
+              className="flex items-center gap-1 cursor-pointer transition-all hover:text-dark-grey"
+              title="bookmark post"
+              onClick={bookmarkHandler}
+            >
+              <HiBookmark />
+              <span className="text-sm text-dark-grey"></span>
+            </li>
+          )}
         </ul>
       </div>
     </div>

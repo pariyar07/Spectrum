@@ -19,6 +19,7 @@ export const handleGuestLogin = createAsyncThunk(
       });
       return request.data;
     } catch (error) {
+      console.error(error);
       return rejectWithValue(error.message);
     }
   }

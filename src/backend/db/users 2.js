@@ -1,0 +1,72 @@
+import { v4 as uuid } from "uuid";
+import { formatDate } from "../utils/authUtils";
+/**
+ * User Database can be added here.
+ * You can add default users of your wish with different attributes
+ * */
+
+export const users = [
+  {
+    _id: uuid(),
+    firstName: "Satyam",
+    lastName: "Pariyar",
+    username: "satyam",
+    password: "satyam@spectrum123",
+    email: "satyam@spectrum.com",
+    createdAt: formatDate(),
+    updatedAt: formatDate(),
+    bio: "Cowards never started and weak died on their way.",
+    profileImage: "https://picsum.photos/id/1025/200/200",
+    backgroundImage: "https://picsum.photos/1000/300",
+    profileLink: "https://github.com/pariyar07",
+    followers: [],
+    following: [],
+  },
+  {
+    _id: uuid(),
+    firstName: "Tanay",
+    lastName: "Pratap",
+    username: "tanay",
+    password: "tanay@spectrum123",
+    email: "tanay@spectrum.com",
+    createdAt: formatDate(),
+    updatedAt: formatDate(),
+    bio: "Cowards never started and weak died on their way.",
+    profileImage: "https://picsum.photos/id/1025/200/200",
+    backgroundImage: "https://picsum.photos/1000/300",
+    profileLink: "https://github.com/pariyar07",
+    followers: [],
+    following: [],
+  },
+  {
+    _id: uuid(),
+    firstName: "Elon",
+    lastName: "Musk",
+    username: "elon",
+    password: "elon@spectrum123",
+    email: "elon@spectrum.com",
+    createdAt: formatDate(),
+    updatedAt: formatDate(),
+    bio: "Cowards never started and weak died on their way.",
+    profileImage: "https://picsum.photos/id/1025/200/200",
+    backgroundImage: "https://picsum.photos/1000/300",
+    profileLink: "https://github.com/pariyar07",
+    followers: [],
+    following: [],
+  },{
+    _id: uuid(),
+    firstName: "Cristiano",
+    lastName: "Ronaldo",
+    username: "cristiano",
+    password: "cristino@spectrum123",
+    email: "cristino@spectrum.com",
+    createdAt: formatDate(),
+    updatedAt: formatDate(),
+    bio: "Cowards never started and weak died on their way.",
+    profileImage: "https://picsum.photos/id/1025/200/200",
+    backgroundImage: "https://picsum.photos/1000/300",
+    profileLink: "https://github.com/pariyar07",
+    followers: [],
+    following: [],
+  },
+];

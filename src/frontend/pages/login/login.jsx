@@ -1,20 +1,28 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import useToast from "frontend/custom/useToast";
 import { handleGuestLogin } from "frontend/features/auth/authSlice";
+import { handleLogin } from "frontend/features/auth/authSlice";
 
 const Login = () => {
   const { isLogged } = useSelector((store) => store.auth);
   const navigate = useNavigate();
   const { showToast } = useToast();
   const dispatch = useDispatch();
+  const [userEmail, setUserEmail] = useState();
+  const [userPassword, setUserPassword] = useState();
 
   const guestLogin = (e) => {
     e.preventDefault();
     dispatch(handleGuestLogin());
+  };
+
+  const handleLogIn = (e) => {
+    e.preventDefault();
+    dispatch(handleLogin({ userEmail, userPassword }));
   };
 
   useEffect(() => {
@@ -55,6 +63,8 @@ const Login = () => {
               id="email"
               placeholder="Email"
               className="border-grey border rounded-md py-1 px-2"
+              value={userEmail}
+              onChange={(e) => setUserEmail(e.target.value)}
             />
           </div>
           <div className="flex flex-col gap-1">
@@ -64,6 +74,8 @@ const Login = () => {
               id="password"
               placeholder="Password"
               className="border-grey border rounded-md py-1 px-2"
+              value={userPassword}
+              onChange={(e) => setUserPassword(e.target.value)}
             />
           </div>
           <div className="flex flex-col gap-4">
@@ -89,6 +101,7 @@ const Login = () => {
             <button
               className="text-center font-medium text-xl bg-black text-white w-full rounded-xl py-2 px-2 cursor-pointer"
               title="Login"
+              onClick={handleLogIn}
             >
               Log-In
             </button>
